@@ -67,7 +67,7 @@ def parse_auth_response(data: Any) -> AuthResponse:
     ):
         session = model_validate(Session, data)
     user_data = data.get("user", data)
-    user = model_validate(User, user_data) if user_data else None
+    user = model_validate(User, user_data) if (user_data and list(user_data.keys()) != ["message_id"]) else None
     return AuthResponse(session=session, user=user)
 
 
